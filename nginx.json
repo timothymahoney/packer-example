@@ -1,0 +1,38 @@
+{
+  "variables": {
+    "from": "ubuntu"
+  },
+
+  "builders": [
+      {
+          "type": "docker",
+          "image": "{{ user `from` }}:latest",
+          "commit": "true",
+          "pull": "true",
+          "changes": [
+              "ENTRYPOINT [\"nginx\", \"-g\", \"daemon off;\"]"
+          ]
+      }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "{{ user `from` }}.sh"
+    },
+    {
+      "type": "file",
+      "source": "nginx.conf",
+      "destination": "/etc/nginx/nginx.conf"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "timmahoney/{{ user `from` }}-nginx",
+        "tag": "latest"
+      },
+      "docker-push"
+    ]
+  ]
+}
