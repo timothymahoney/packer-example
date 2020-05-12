@@ -18,6 +18,10 @@ packer build -var 'from=ubuntu' nginx.json
 packer build -var 'from=centos' nginx.json
 ```
 
+### Docker hub links
+Ubuntu: https://hub.docker.com/repository/docker/timmahoney/ubuntu-nginx
+Centos: https://hub.docker.com/repository/docker/timmahoney/centos-nginx
+
 Once the container is built and pushed to the docker hub account, it can be ran via docker:
 
 ### Ubuntu
